@@ -1,5 +1,4 @@
 // Deposit an amount
-// Determine number of lines to bet on
 // Collect a bet amount
 // Spin the slot machine
 // Check if the user won or not
@@ -7,6 +6,8 @@
 // Play again
 
 const prompt = require('prompt-sync')();
+
+const slotMachineValues = [1,2,3];
 
 const deposit = () => {
     while (true) {
@@ -22,34 +23,82 @@ const deposit = () => {
     }  
 };
 
-const getNumberOfLines = () => {
-    while (true) {
-        const lines = prompt("Enter the number of lines to bet on (1-3): ");
-        const numberOfLines = parseFloat(lines);
 
-        if (isNaN(numberOfLines) || numberOfLines <= 0 || numberOfLines > 3) {
-            console.log("Not a valid number of lines. Please try again")
-        }
-        else {
-            return numberOfLines;
-        }
-    } 
-};
-
-const getBet = (balance, lines) => {
+const getBet = (balance) => {
     while (true) {
-        const bet = prompt("Enter the bet amount per line: ");
+        const bet = prompt("Enter the bet amount: ");
         const numberBet = parseFloat(bet);
 
-        if (isNaN(numberBet) || numberBet <= 0 || balance < numberBet * lines) {
+        if (isNaN(numberBet) || numberBet <= 0 || balance < numberBet) {
             console.log("Not a valid bet amount. Please try again")
         }
         else {
             return numberBet;
         }
     } 
-}
+};
 
-let balance = deposit();
-const numberOfLines = getNumberOfLines();
-const bet = getBet(balance, numberOfLines);
+const spin = () => {
+    boxValues = [];
+    for (let i=0; i<3; i++) {
+        const randomIndex = Math.floor(Math.random() * slotMachineValues.length);
+        let boxValue = slotMachineValues[randomIndex];
+        boxValues.push(boxValue);
+    }
+    return boxValues
+};
+
+const check = (spinValues) => {
+    const firstValue = spinValues[0];
+    for (let i=1; i<spinValues.length; i++) {
+        if (spinValues[i] != firstValue) {
+            return false;
+        }
+    }
+    return true;
+};
+
+const winnings = (checkWinner, bet) => {
+    if (checkWinner) {
+        winningsAmount = bet * 2;
+        console.log("Congratulations! You won Rs"+ winningsAmount);
+    }
+    else {
+        console.log("Better luck next time");
+        winningsAmount = 0;
+    }
+    return winningsAmount;
+};
+
+const game = () => {
+    let balance = deposit();
+
+    while (true){
+        console.log("Balance: " + balance);
+        const bet = getBet(balance);
+        const spinValues = spin();
+        console.log(spinValues);
+        const checkWinner = check(spinValues);
+        const winningsAmount = winnings(checkWinner, bet);
+        if (winningsAmount > 0) {
+            balance += winningsAmount;
+        }
+        else {
+            balance -= bet;
+        }
+
+        if (balance <= 0){
+            console.log("Your ran out of money!");
+            break;
+        }
+
+        const playAgain = prompt("Do you want to play again (y/n)?");
+        if (playAgain != 'y'){
+            break;
+        }
+    }
+};
+
+game();
+
+
