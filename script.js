@@ -7,6 +7,7 @@ const spinBtn = document.getElementById('spinButton');
 const box1 = document.getElementById('box1');
 const box2 = document.getElementById('box2');
 const box3 = document.getElementById('box3');
+const winningMessage = document.getElementById('winning-message');
 
 let balance = 0;
 
@@ -36,33 +37,41 @@ const getRandomValue = () => {
     return randomValues[randomIndex];
 };
 
-const spin = (balance) => {
+const spin = (balance, winningMsg) => {
     const betAmount = prompt('Please enter a bet');
     const intBetAmount = parseFloat(betAmount);
 
-    if (isNaN(intBetAmount) || intBetAmount <= 0 || intBetAmount>=balance) {
+    if (isNaN(intBetAmount) || intBetAmount <= 0 || intBetAmount > balance) {
         alert('Please enter a valid bet amount or check your balance');
     }
 
     else {
         balance -= intBetAmount;
-        balanceDisplay.textContent = balance;
 
-        const valueBox1 = getRandomValue();
-        const valueBox2 = getRandomValue();
-        const valueBox3 = getRandomValue();
+        let winnings = 0;
+
+        let valueBox1 = getRandomValue();
+        let valueBox2 = getRandomValue();
+        let valueBox3 = getRandomValue();
 
         box1.textContent = valueBox1;
         box2.textContent = valueBox2;
         box3.textContent = valueBox3;
 
-        const hasWon = (valueBox1 == valueBox2 == valueBox3);
-        if (hasWon) {
-            const winnings = intBetAmount * 2;
-            return winnings;
+        if (valueBox1 == valueBox2 && valueBox3 == valueBox2){
+            winnings = intBetAmount * 2;
+            balance += winnings;
+            balanceDisplay.textContent = balance;
+            winningMsg = "You won Rs " + winnings;
+            winningMessage.textContent = winningMsg;
+            return balance;
         }
+
         else {
-            return 0;
+            balanceDisplay.textContent = balance;
+            winningMsg = "Better luck next time!";
+            winningMessage.textContent = winningMsg;
+            return balance;
         }
     }
 };
@@ -75,5 +84,7 @@ addBalance.addEventListener("click", () => {
     balanceDisplay.textContent = balance;
 });
 spinBtn.addEventListener("click", () => {
-    const winnings = spin(balance);
+    let winningMsg = "Spin to Win!"
+    const newBalance = spin(balance, winningMsg);
+    balance = newBalance;
 });
