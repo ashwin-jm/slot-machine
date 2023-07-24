@@ -26,6 +26,11 @@ body {
     border: none;
 }
 
+#modal {
+    width: 50%;
+    transition: 2s;
+}
+
 .slot-machine {
     background-color: #ff584d;
     height: 70%;
@@ -39,13 +44,35 @@ body {
 }
 
 .balance-box {
-    background-color: whitesmoke;
     height: 10vh;
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 
+}
+
+.balance-box div {
+    background-color: whitesmoke;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.balance-display {
+    width: 70%;
+}
+
+.balance-add {
+    width: 20%;
+}
+
+.balance-add button {
+    border: none;
+    font-size: large;
+    height: 100%;
+    width: 100%;
 }
 
 .game {
@@ -75,6 +102,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 2rem;
 }
 
 .spin-button button {

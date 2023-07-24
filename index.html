@@ -8,28 +8,47 @@
 </head>
 <body>
     <div class="about">
-        <button>About the game</button>
+        <button id="aboutButton">About the game</button>
+    </div>
+
+    <div id="modal" style="display: none;">
+        <div>
+            <p>The rules of the game are simple. You upload an amount which will be shown in your balance.
+                You place a bet amount and hit the spin button. If all the numbers in the three boxes are equal,
+                you win double of what you bet. The balance will be updated accordingly.
+            </p>
+            <h2>Bet Bigger, Win Bigger</h2>
+            <h1>Let's go! Spin to see your luck!</h1>
+            <button id="closeButton">Close</button>
+        </div>
     </div>
 
     <div class="slot-machine">
         <div class="balance-box">
-            <h1>Balance: <span id="balance-amount"></span></h1>
+            <div class="balance-display">
+                <h1>Balance: Rs <span id="balance-amount">0</span></h1>
+            </div>
+           
+            <div class="balance-add">
+                <button id="addBalanceButton">Add Balance</button>
+            </div>
+            
         </div>
     
         <div class="game">
-            <div class="box1">Box 1</div>
-            <div class="box2">Box 2</div>
-            <div class="box3">Box 3</div>
+            <div class="box1" id="box1">1</div>
+            <div class="box2" id="box2">2</div>
+            <div class="box3" id="box3">3</div>
             <div class="spin-button">
-                <button>Spin</button>
+                <button id="spinButton">Spin</button>
             </div>
         </div>
     
         <div class="message">
-            <h1 id="winning-message">You won: <span id="winning-amount"></span></h1>
+            <h1 id="winning-message">Spin to win!</h1>
         </div>
     </div>
     
-
+    <script src="script.js"></script>
 </body>
 </html>

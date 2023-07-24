@@ -9,6 +9,8 @@ const prompt = require('prompt-sync')();
 
 const slotMachineValues = [1,2,3];
 
+
+
 const deposit = () => {
     while (true) {
         const depositAmount = prompt("Enter a deposit amount: ");
@@ -99,6 +101,6 @@ const game = () => {
     }
 };
 
-game();
+
 
 
